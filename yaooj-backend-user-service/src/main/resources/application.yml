@@ -1,0 +1,69 @@
+server:
+  address: 0.0.0.0
+  port: 8102
+  servlet:
+    context-path: /api/user
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+        path: /api
+
+
+spring:
+  application:
+    name: yaooj-backend-user-service
+  # ?? dev ??
+  profiles:
+    active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yaooj
+    username: root
+    password: 123456
+  jackson:
+    generator:
+      write-numbers-as-strings: true
+  # 开启redis配置
+  redis:
+    host: 192.168.150.3
+    database: 0
+    port: 6379
+    timeout: 5000
+    password: 123456
+  #session配置
+  session:
+    #开启分布式session存储
+    store-type: redis
+    #30天过期
+    timeout: 2592000
+  servlet:
+    multipart:
+      # ????
+      max-file-size: 10MB
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+
+# 代码沙箱配置
+codesandbox:
+  type: remote
+
+# knife4j接口配置
+knife4j:
+  enable: true
+
